@@ -1,13 +1,20 @@
 import { useState, type FC } from "react";
 import { CHARACTERS } from "../constants";
 import { Card } from "./Card";
+import { EndDialog } from "./EndDialog";
 
 type GameProps = {
-    onFinish: () => void;
+    setGame: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowLander: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Game: FC<GameProps> = ({ onFinish }) => {
+export const Game: FC<GameProps> = ({ setGame, setShowLander }) => {
+    // == STATE ==
     const [selected, setSelected] = useState<string[]>([]);
+    const [result, setResult] = useState<string>("");
+    const [score, setScore] = useState<number>(0);
+    const [highScore, setHighScore] = useState<number>(0);
+
     function shuffle<T>(arr: T[]) {
         const a = [...arr];
         for (let i = a.length - 1; i > 0; i--) {
@@ -19,17 +26,33 @@ export const Game: FC<GameProps> = ({ onFinish }) => {
 
     return (
         <div id="game">
-            <div id="gameboard">
+            <div id="scores">
+                <p><b>Score:</b> <span>{score}</span></p>
+                <p><b>High Score:</b> <span>{highScore}</span></p>
+            </div>
+            {!(result) && <div id="gameboard">
                 {shuffle(CHARACTERS).map(char => (
                     <Card
                         key={char}
                         name={char}
                         selected={selected}
+                        score={score}
+                        highScore={highScore}
                         setSelected={setSelected}
-                        onFinish={onFinish}
+                        setResult={setResult}
+                        setScore={setScore}
+                        setHighScore={setHighScore}
                     />
                 ))}
-            </div>
+            </div>}
+
+            {result &&
+             <EndDialog
+                result={result}
+                setResult={setResult}
+                setGame={setGame}
+                setShowLander={setShowLander}
+             />}
         </div>
     )
 }

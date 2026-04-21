@@ -83,7 +83,7 @@ button, a {
   -webkit-text-fill-color: transparent;
 }
 
-#lander button {
+#lander button, #dialog div button {
   margin-bottom: 10%;
   position: relative;
   padding: 1vw 2vw;
@@ -105,7 +105,7 @@ button, a {
   overflow: hidden;
 }
 
-#lander button::before {
+#lander button::before, #dialog div button::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -136,12 +136,36 @@ button, a {
   }
 }
 
-#game {
+#game, #dialogContainer {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#scores {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-end;
+  color: #66bbf4;
+  font-family: 'Arcane', sans-serif;
+  padding: 2vw;
+}
+
+#scores p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+#scores p span {
+  color: #7ee0ed;
+  font-size: 1.5rem;
 }
 
 #gameboard {
@@ -161,4 +185,45 @@ button, a {
   height: 90%;
   width: 50%;
   border: 1px solid white;
+}
+
+#dialog {
+  width: 50%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: 'Arcane', sans-serif;
+}
+
+#dialog h1 {
+  font-size: 6.5rem;
+  background: linear-gradient(
+    90deg,
+    #7ee0ed 0%,
+    #66bbf4 25%,
+    #2498f1 60%,
+    #2a548e 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#dialog div {
+  padding: 4vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4vw;
+}
+
+#homeBtn {
+  background: #142946 !important;
+  border: 3px solid #66bbf4 !important;
+  color: #7ee0ed !important;
+}
+
+#homeBtn:hover {
+  transform: scale(1.05);
 }

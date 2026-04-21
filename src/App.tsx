@@ -18,10 +18,12 @@ function App() {
         setGame(true);
       }} />}
       
-      {game && <Game onFinish={() => {
-        setGame(false);
-        setShowLander(true);
-      }}/>}
+      {game && 
+        <Game
+          setGame={setGame}
+          setShowLander={setShowLander}
+        />
+      }
     </div>
   )
 }

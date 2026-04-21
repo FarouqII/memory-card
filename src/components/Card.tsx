@@ -1,19 +1,38 @@
-import { useEffect, type FC } from "react";
+import React, { useEffect, useState, type FC } from "react";
 
 type CardProps = {
     name: string;
     selected: string[];
+    score: number;
+    highScore: number;
     setSelected: React.Dispatch<React.SetStateAction<string[]>>;
-    onFinish: () => void;
+    setResult: React.Dispatch<React.SetStateAction<string>>;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
+    setHighScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Card: FC<CardProps> = ({ name, selected, setSelected, onFinish }) => {
+export const Card: FC<CardProps> = ({ name, selected, score, highScore, setSelected, setScore, setResult, setHighScore}) => {
+    // == HANDLERS ==
+    const handleWin = () => {
+        setResult("win");
+        setHighScore(score);
+        setScore(0);
+    }
+
+    const handleLoss = () => {
+        setResult("lose");
+        if (highScore < score) setHighScore(score);
+        setScore(0);
+    }
+
     const clickHandler = () => {
-        if (selected.includes(name)) onFinish();
-        else {
-            setSelected([...selected, name]);
-            if (selected.length == 5) onFinish();
+        if (selected.includes(name)) {
+            handleLoss();
+            return;
         }
+        setSelected([...selected, name]);
+        if (selected.length == 5) handleWin();
+        else setScore(score + 1);
     }
 
     return (
