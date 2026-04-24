@@ -1,3 +1,3 @@
-const CHARACTERS: string[] = ["Jinx", "Vi", "Caitlyn", "Jayce", "Viktor", "Mel"];
+const CHARACTERS: string[] = ["Jinx", "Vi", "Cait", "Jayce", "Viktor", "Mel"];
 
 export {CHARACTERS};

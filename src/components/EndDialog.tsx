@@ -1,14 +1,15 @@
-import { useEffect, useRef, type FC } from 'react';
+import React, { useEffect, useRef, type FC } from 'react';
 import gsap from 'gsap';
 
 type EndDialogProps = {
     result: string;
     setResult: React.Dispatch<React.SetStateAction<string>>;
+    setSelected: React.Dispatch<React.SetStateAction<string[]>>;
     setGame: React.Dispatch<React.SetStateAction<boolean>>;
     setShowLander: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const EndDialog: FC<EndDialogProps> = ({ result, setResult, setGame, setShowLander }) => {
+export const EndDialog: FC<EndDialogProps> = ({ result, setResult, setSelected, setGame, setShowLander }) => {
     const btnRef = useRef<HTMLButtonElement | null>(null);
 
     useEffect(() => {
@@ -59,7 +60,10 @@ export const EndDialog: FC<EndDialogProps> = ({ result, setResult, setGame, setS
             <div id='dialog'>
                 <h1>You {result}!</h1>
                 <div>
-                    <button ref={btnRef} onClick={() => setResult("")}>New Game</button>
+                    <button ref={btnRef} onClick={() => {
+                        setResult("");
+                        setSelected([]);
+                    }}>New Game</button>
                     <button id='homeBtn' onClick={() => {
                         setGame(false);
                         setShowLander(true);
